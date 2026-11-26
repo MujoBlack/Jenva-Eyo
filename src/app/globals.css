@@ -1,0 +1,62 @@
+/* Tailwind theme + utilities only: the site's own base styles come from site.css. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Ported design system and section styles (from the original Webflow build). */
+@import "./site.css";
+
+:root {
+  /* Instrument Sans is self-hosted through next/font (see layout.tsx). */
+  --font--heading-sans: var(--font-instrument-sans), "Instrument Sans", sans-serif;
+}
+
+@theme inline {
+  --color-cream: var(--_colors---bg--bg-1);
+  --color-ink: var(--_colors---color--dark);
+  --color-sun: var(--_colors---color--yellow);
+  --font-serif: var(--font--heading-serif);
+  --font-sans: var(--font--heading-sans);
+  --font-mono: var(--font--ui);
+}
+
+/* Semantic tags replace some of the original divs; keep them unstyled. */
+h1.logo-wrap-hero,
+h2.text-h2,
+h2.heading-large,
+p.text-scroll-right,
+p.label {
+  margin: 0;
+}
+
+h2.heading-large {
+  font-weight: var(--font-weight--normal);
+}
+
+label.label {
+  margin: 0;
+  font-weight: var(--_text---label--font-weight);
+  display: block;
+}
+
+button.tab-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.bottom-tile-footer a.label {
+  color: inherit;
+}
+
+/* The preloader shows from the very first paint; Motion fades it out. */
+.preloader {
+  display: flex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+}
