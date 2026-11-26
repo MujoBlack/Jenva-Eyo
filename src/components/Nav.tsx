@@ -54,7 +54,13 @@ export default function Nav() {
                   </a>
                 );
               })}
-              <a href="#signal" className={`nav-link cta mobile-hidden w-inline-block${cls("signal")}`} {...mark("signal")}>
+              <a
+                href="#signal"
+                className={`nav-link cta mobile-hidden w-inline-block${cls("signal")}`}
+                data-track="Support"
+                data-track-label="nav"
+                {...mark("signal")}
+              >
                 <div className="button-label">Support</div>
               </a>
             </nav>

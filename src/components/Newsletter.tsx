@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 import { ArrowIcon } from "./Icons";
 
 type Status = "idle" | "sending" | "done" | "error";
@@ -23,6 +24,7 @@ export default function Newsletter() {
         body: JSON.stringify({ email }),
       });
       setStatus(res.ok ? "done" : "error");
+      if (res.ok) track("Newsletter signup");
     } catch {
       setStatus("error");
     }

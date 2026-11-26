@@ -159,7 +159,15 @@ export function Tracks() {
                 <div className="button-wrap-snap">
                   <h3 className="track-title">{t.title}</h3>
                   <div className="button-snap _1">
-                    <a href={LINKS.stream} target="_blank" rel="noopener" className="w-inline-block" aria-label={`Stream ${t.title}`}>
+                    <a
+                      href={LINKS.stream}
+                      target="_blank"
+                      rel="noopener"
+                      className="w-inline-block"
+                      aria-label={`Stream ${t.title}`}
+                      data-track="Stream"
+                      data-track-label={t.title}
+                    >
                       <div className="button-visible-text _1">
                         <div className="label">STREAM</div>
                       </div>
@@ -185,7 +193,7 @@ export function Lives() {
             <div className="heading-skills">
               <h2 className="heading-large">We don’t just perform we ignite energy.</h2>
             </div>
-            <a href={BOOKING_MAILTO} className="nav-link cta book-button w-inline-block">
+            <a href={BOOKING_MAILTO} className="nav-link cta book-button w-inline-block" data-track="Book">
               <div className="button-label">Book Jenva</div>
             </a>
           </div>
@@ -281,7 +289,13 @@ export function Signal() {
             </div>
             <div className="button-wrap-signal">
               <p className="support-why">Your support pays for studio time and the next music video.</p>
-              <a href={LINKS.paypal} target="_blank" rel="noopener" className="nav-link cta w-inline-block">
+              <a
+                href={LINKS.paypal}
+                target="_blank"
+                rel="noopener"
+                className="nav-link cta w-inline-block"
+                data-track="Support"
+              >
                 <div className="button-label">Send your love</div>
               </a>
             </div>
@@ -325,13 +339,20 @@ export function Footer() {
           <ul className="social-list" aria-label="Jenva Eyo on other platforms">
             {SOCIALS.map((s) => (
               <li key={s.label}>
-                <a href={s.href} target="_blank" rel="noopener me" className="label social-link">
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener me"
+                  className="label social-link"
+                  data-track="Profile"
+                  data-track-label={s.label}
+                >
                   {s.label}
                 </a>
               </li>
             ))}
           </ul>
-          <a href={BOOKING_MAILTO} className="nav-link cta book-button w-inline-block">
+          <a href={BOOKING_MAILTO} className="nav-link cta book-button w-inline-block" data-track="Book">
             <div className="button-label">Book Jenva</div>
           </a>
         </div>

@@ -1,6 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans } from "next/font/google";
 import { preload } from "react-dom";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import JsonLd from "@/components/JsonLd";
+import Tracking from "@/components/Tracking";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, TAGLINE } from "@/lib/site";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
@@ -9,28 +14,19 @@ const instrumentSans = Instrument_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-/**
- * Absolute base for share images and canonical URLs. Set NEXT_PUBLIC_SITE_URL
- * once the domain is live; until then Vercel's production URL is used.
- */
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000");
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: "Jenva Eyo",
-  description:
-    "From Uganda to your playlist: immersive Afro-Pop waves, heartfelt lyrics, and a new musical era. Music, live shows and the story of Jenva Eyo.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_TITLE, template: "%s | Jenva Eyo" },
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
   openGraph: {
+    type: "website",
+    siteName: "Jenva Eyo",
     title: "Jenva Eyo",
-    description: "From Uganda to your playlist: immersive Afro-Pop waves, heartfelt lyrics, and a new musical era.",
-    images: ["/media/jenva-short-poster.jpg"],
+    description: TAGLINE,
+    url: "/",
   },
+  twitter: { card: "summary_large_image", site: "@Jenvaa_", creator: "@Jenvaa_" },
 };
 
 export const viewport: Viewport = {
@@ -60,6 +56,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <style>{`.preloader{display:none!important}`}</style>
         </noscript>
         {children}
+        <JsonLd />
+        <Tracking />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
