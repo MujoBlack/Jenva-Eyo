@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
+import { onMotionChange } from "@/lib/motion-pref";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
@@ -12,6 +13,10 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
  * interaction config. Timings, positions and eases are copied 1:1; the
  * comments name the original interaction so the two can be compared.
  */
+
+/** Endless loops that the "Pause motion" toggle stops (see MotionToggle). */
+const loops: gsap.core.Tween[] = [];
+const syncLoops = (paused: boolean) => loops.forEach((t) => t.paused(paused));
 
 const q = <T extends Element = HTMLElement>(sel: string) => gsap.utils.toArray<T>(sel);
 
@@ -65,7 +70,7 @@ function preloaderAndHero() {
     .fromTo(".right-hero-year", { x: 20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "power1.in" }, heroAt);
 
   // i-0608b2f1: the photo ring spins forever
-  gsap.to(".circle-wrapper", { rotation: 360, duration: 20, ease: "none", repeat: -1 });
+  loops.push(gsap.to(".circle-wrapper", { rotation: 360, duration: 20, ease: "none", repeat: -1 }));
 }
 
 function navigation() {
@@ -161,8 +166,15 @@ function tracks() {
     defaults: { ease: "none" },
     scrollTrigger: { trigger: ".color-change", start: "top bottom", end: "bottom top", scrub: 1 },
   });
-  tl.fromTo(sections, { backgroundColor: cream, color: dark }, { backgroundColor: dark, color: "#ffffff", duration: 10 }, 0)
-    .to(sections, { backgroundColor: cream, color: dark, duration: 7 }, 80)
+  // Text colour flips at the midpoint of each background fade instead of
+  // fading with it, so it never sits grey-on-grey. The fade back to cream is
+  // shorter than the original 7 units, since the Live Shows heading is on
+  // screen while it runs.
+  tl.set(sections, { color: dark }, 0)
+    .fromTo(sections, { backgroundColor: cream }, { backgroundColor: dark, duration: 10 }, 0)
+    .set(sections, { color: "#ffffff" }, 5)
+    .to(sections, { backgroundColor: cream, duration: 3 }, 82)
+    .set(sections, { color: dark }, 83.5)
     .set({}, {}, 100);
 }
 
@@ -227,7 +239,9 @@ function photoRing() {
 
 function footer() {
   // i-ddfb1295: endless logo marquee.
-  gsap.fromTo(".footer-marquee-item-wrap", { xPercent: 0 }, { xPercent: -100, duration: 20, ease: "none", repeat: -1 });
+  loops.push(
+    gsap.fromTo(".footer-marquee-item-wrap", { xPercent: 0 }, { xPercent: -100, duration: 20, ease: "none", repeat: -1 }),
+  );
 
   // IX2 "Divider / Expand"
   for (const divider of q(".section-divider")) {
@@ -254,12 +268,20 @@ export default function Motion() {
         story();
         signal();
         footer();
+        syncLoops(paused);
         ScrollTrigger.refresh();
       });
       let live = true;
+      let paused = false;
+      const off = onMotionChange((p) => {
+        paused = p;
+        syncLoops(p);
+      });
       document.fonts.ready.then(() => live && scrollScenes());
       return () => {
         live = false;
+        off();
+        loops.length = 0;
       };
     });
 

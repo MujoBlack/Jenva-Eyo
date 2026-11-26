@@ -17,7 +17,7 @@ import {
 } from "@/lib/content";
 
 function Photo({ img, className = "image-cover", sizes }: { img: Img; className?: string; sizes: string }) {
-  return <Image src={img.src} width={img.w} height={img.h} alt="" className={className} sizes={sizes} />;
+  return <Image src={img.src} width={img.w} height={img.h} alt={img.alt ?? ""} className={className} sizes={sizes} />;
 }
 
 export function Navigation() {
@@ -286,7 +286,7 @@ export function Signal() {
           </div>
           <div className="circle-wrapper" aria-hidden="true">
             {RING_IMAGES.map((img, i) => (
-              <Photo key={`${img.src}-${i}`} img={img} className="circle-image" sizes="110px" />
+              <Photo key={`${img.src}-${i}`} img={{ ...img, alt: undefined }} className="circle-image" sizes="110px" />
             ))}
           </div>
         </div>

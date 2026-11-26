@@ -80,3 +80,100 @@ span.heading-405 {
 .no-intro .preloader {
   display: none;
 }
+
+/* ---------- Accessibility (WCAG 2.2 AA) ---------- */
+
+/* Visible keyboard focus: a dark ring with a cream gap, readable on yellow,
+   cream and over video alike. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--_colors---color--dark);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--_colors---bg--bg-1);
+}
+main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 10000;
+  padding: 12px 16px;
+  border-radius: 32px;
+  background: var(--_colors---color--yellow);
+  color: var(--_colors---color--dark);
+  font-family: var(--font--ui);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* "Pause motion" toggle, bottom-right corner. */
+.motion-toggle {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 9000;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--_colors---color--dark-48);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  color: var(--_colors---color--yellow);
+  cursor: pointer;
+}
+
+/* Tap targets of at least 44 x 44px: more padding, same type size. */
+.nav-link,
+.tab-btn {
+  min-height: 44px;
+}
+.text-field {
+  min-height: 44px;
+}
+.submit-button-wrap {
+  min-width: 44px;
+  min-height: 44px;
+}
+.panel-inner .label a,
+.bottom-tile-footer a.label {
+  display: inline-block;
+  padding-block: 14px;
+  margin-block: -14px;
+}
+.link-block {
+  min-height: 44px;
+}
+
+/* A soft shade under the hero's bottom labels so they read over any frame. */
+.video-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 160px;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.45), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+.video-hero > .main-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Keep the hero's "2025" clear of the motion toggle on phones. */
+@media screen and (max-width: 767px) {
+  .bottom-tile-hero {
+    padding-right: 48px;
+  }
+}

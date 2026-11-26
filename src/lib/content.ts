@@ -5,12 +5,14 @@ export const LINKS = {
   designer: "https://fahaddeartist.com",
 };
 
-export type Img = { src: string; w: number; h: number };
+/** `alt` only for photos that carry meaning; decorative ones stay empty. */
+export type Img = { src: string; w: number; h: number; alt?: string };
 
-const m = (name: string, w: number, h: number): Img => ({
+const m = (name: string, w: number, h: number, alt?: string): Img => ({
   src: `/media/${name}`,
   w,
   h,
+  alt,
 });
 
 export const NAV = [
@@ -30,36 +32,36 @@ export const VIBE_PHRASES = [
 
 /** Scattered photos in the Vibe section, in the same order and slots as the original layout. */
 export const VIBE_IMAGES: { slot: string; img: Img }[] = [
-  { slot: "scroll-image-large _1", img: m("img-9.jpg", 640, 640) },
-  { slot: "scroll-image-vertical _1", img: m("img-3.jpg", 640, 640) },
-  { slot: "scroll-image-small _1", img: m("img-1.jpg", 640, 640) },
-  { slot: "scroll-image-large _2", img: m("img-5.jpg", 640, 640) },
-  { slot: "scroll-image-large _3", img: m("img-4.jpg", 640, 640) },
-  { slot: "scroll-image-large heading-404", img: m("img-10.jpg", 640, 800) },
-  { slot: "scroll-image-small _2", img: m("img-13.jpg", 640, 800) },
+  { slot: "scroll-image-large _1", img: m("img-9.jpg", 640, 640, "Jenva on stage, shirtless, reaching out to a dancer") },
+  { slot: "scroll-image-vertical _1", img: m("img-3.jpg", 640, 640, "Jenva in a leather jacket in a snowy landscape") },
+  { slot: "scroll-image-small _1", img: m("img-1.jpg", 640, 640, "Jenva in a red shuka among tall grass") },
+  { slot: "scroll-image-large _2", img: m("img-5.jpg", 640, 640, "Jenva in a sequinned white coat") },
+  { slot: "scroll-image-large _3", img: m("img-4.jpg", 640, 640, "Jenva in sunglasses and a cropped leather jacket") },
+  { slot: "scroll-image-large heading-404", img: m("img-10.jpg", 640, 800, "Jenva singing into a microphone") },
+  { slot: "scroll-image-small _2", img: m("img-13.jpg", 640, 800, "Jenva in a dark green suit") },
 ];
 
 export const VIBE_ROWS: { row: string; items: { slot: string; img: Img }[] }[] = [
   {
     row: "scroll-row _1",
     items: [
-      { slot: "scroll-image-small _5", img: m("img-14.jpg", 640, 800) },
-      { slot: "scroll-image-horizontall _1", img: m("img-12.jpg", 640, 640) },
+      { slot: "scroll-image-small _5", img: m("img-14.jpg", 640, 800, "Jenva walking a runway") },
+      { slot: "scroll-image-horizontall _1", img: m("img-12.jpg", 640, 640, "Jenva in a white robe, hand raised to the head") },
     ],
   },
   {
     row: "scroll-row _2",
     items: [
-      { slot: "scroll-image-small _6", img: m("img-7.jpg", 640, 640) },
-      { slot: "scroll-image-large _4", img: m("img-11.jpg", 640, 800) },
+      { slot: "scroll-image-small _6", img: m("img-7.jpg", 640, 640, "Jenva at a radio studio microphone") },
+      { slot: "scroll-image-large _4", img: m("img-11.jpg", 640, 800, "Jenva on a black leather sofa") },
     ],
   },
 ];
 
 export const TRACKS: { title: string; img: Img }[] = [
-  { title: "Genva's Musics", img: m("design-1-copy.jpg", 2000, 1226) },
-  { title: "Mapenzi", img: m("design-2.jpg", 2000, 1125) },
-  { title: "I Don't", img: m("design-3.jpg", 1424, 1064) },
+  { title: "Genva's Musics", img: m("design-1-copy.jpg", 2000, 1226, "Genva's Musics cover art") },
+  { title: "Mapenzi", img: m("design-2.jpg", 2000, 1125, "Mapenzi cover art") },
+  { title: "I Don't", img: m("design-3.jpg", 1424, 1064, "I Don't cover art") },
 ];
 
 export type Show = {

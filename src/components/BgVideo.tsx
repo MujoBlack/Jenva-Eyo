@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { onMotionChange } from "@/lib/motion-pref";
 
 type Props = {
   name: string;
@@ -24,7 +25,7 @@ function saveData() {
  * The poster shows first. The video file is attached only when the video
  * comes within one screen of view, plays while it is on screen and pauses
  * when it leaves. Phones get a smaller encode (`<name>-mobile.mp4`).
- * Paused under reduced motion, like the original site.
+ * Paused under reduced motion or the "Pause motion" toggle.
  */
 export default function BgVideo({ name, className, children, eager = false, enabled = true }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -56,14 +57,14 @@ export default function BgVideo({ name, className, children, eager = false, enab
     if (load) ref.current?.load();
   }, [load]);
 
-  // Once attached: play only while visible, and never under reduced motion.
+  // Once attached: play only while visible, and never while motion is paused.
   useEffect(() => {
     const video = ref.current;
     if (!video || !load) return;
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     let visible = false;
+    let paused = false;
     const apply = () => {
-      if (visible && enabled && !mq.matches) video.play().catch(() => {});
+      if (visible && enabled && !paused) video.play().catch(() => {});
       else video.pause();
     };
     const io = new IntersectionObserver((entries) => {
@@ -71,10 +72,13 @@ export default function BgVideo({ name, className, children, eager = false, enab
       apply();
     });
     io.observe(video);
-    mq.addEventListener("change", apply);
+    const off = onMotionChange((p) => {
+      paused = p;
+      apply();
+    });
     return () => {
       io.disconnect();
-      mq.removeEventListener("change", apply);
+      off();
     };
   }, [load, enabled]);
 

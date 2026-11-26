@@ -2366,8 +2366,8 @@ a {
     --_text---text-large--font-weight: var(--weight--body);
     --_text---text-large--letter-spacing: -.4px;
     --_text---label--font-family: var(--font--ui);
-    --_text---label--font-size: 10px;
-    --_text---label--line-height: 12px;
+    --_text---label--font-size: 12px;
+    --_text---label--line-height: 16px;
     --_text---label--font-weight: var(--weight--ui);
     --_text---label--letter-spacing: 1px;
     --_text---h8--font-family: var(--font--heading-serif);
@@ -2690,8 +2690,8 @@ a {
     --_text---text-large--font-weight: var(--weight--body);
     --_text---text-large--letter-spacing: -.4px;
     --_text---label--font-family: var(--font--ui);
-    --_text---label--font-size: 10px;
-    --_text---label--line-height: 12px;
+    --_text---label--font-size: 12px;
+    --_text---label--line-height: 16px;
     --_text---label--font-weight: var(--weight--ui);
     --_text---label--letter-spacing: 1px;
     --_text---h8--font-family: var(--font--heading-serif);

@@ -1,4 +1,5 @@
 import Motion from "@/components/Motion";
+import MotionToggle from "@/components/MotionToggle";
 import {
   Footer,
   Hero,
@@ -14,9 +15,12 @@ import {
 export default function Home() {
   return (
     <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <Navigation />
       <Preloader />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         <Vibe />
         <Tracks />
@@ -27,6 +31,7 @@ export default function Home() {
           <Footer />
         </div>
       </main>
+      <MotionToggle />
       <Motion />
     </>
   );
