@@ -15,12 +15,12 @@ const m = (name: string, w: number, h: number, alt?: string): Img => ({
   alt,
 });
 
+/** In-page sections, in page order. `key` matches the nav-link-bg progress fill in Motion.tsx. */
 export const NAV = [
-  { label: "VIBE", href: "#base", key: "base" },
-  { label: "TRACKS", href: "#makes", key: "makes" },
-  { label: "lives", href: "#skills", key: "skills" },
-  { label: "Story", href: LINKS.story, key: "story" },
-  { label: "HILi8", href: "#signal", key: "signal" },
+  { label: "About", href: "#base", key: "base" },
+  { label: "Music", href: "#makes", key: "makes" },
+  { label: "Live", href: "#skills", key: "skills" },
+  { label: "Story", href: "#story", key: "story" },
 ] as const;
 
 export const VIBE_PHRASES = [

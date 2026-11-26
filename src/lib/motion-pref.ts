@@ -24,7 +24,11 @@ export function setMotionPaused(paused: boolean) {
 /** Calls `fn` now and whenever the preference changes. Returns an unsubscribe. */
 export function onMotionChange(fn: (paused: boolean) => void) {
   const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const run = () => fn(motionPaused());
+  const run = () => {
+    const paused = motionPaused();
+    document.documentElement.dataset.motion = paused ? "paused" : "playing";
+    fn(paused);
+  };
   run();
   window.addEventListener(EVENT, run);
   mq.addEventListener("change", run);

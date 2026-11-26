@@ -6,7 +6,6 @@ import SplitTarget from "./SplitTarget";
 import { SparkleIcon, StarburstIcon } from "./Icons";
 import {
   LINKS,
-  NAV,
   RING_IMAGES,
   STATS,
   TRACKS,
@@ -18,42 +17,6 @@ import {
 
 function Photo({ img, className = "image-cover", sizes }: { img: Img; className?: string; sizes: string }) {
   return <Image src={img.src} width={img.w} height={img.h} alt={img.alt ?? ""} className={className} sizes={sizes} />;
-}
-
-export function Navigation() {
-  return (
-    <div className="master-navigation">
-      <div className="navbar w-nav" role="banner">
-        <div className="nav-container w-container">
-          <div className="master-navigation-links">
-            <nav className="wrap-navigation-links" aria-label="Main">
-              <a href="#hero" aria-current="page" className="nav-link brand mobile-hidden w-inline-block w--current">
-                <div className="button-label">HOME</div>
-              </a>
-              {NAV.map((item) => {
-                const external = item.href.startsWith("http");
-                return (
-                  <a
-                    key={item.key}
-                    data-link="color-change"
-                    href={item.href}
-                    className={`nav-link ${item.key} w-inline-block`}
-                    {...(external ? { target: "_blank", rel: "noopener" } : {})}
-                  >
-                    <div className="button-label">{item.label}</div>
-                    <div className={`nav-link-bg ${item.key}`} />
-                  </a>
-                );
-              })}
-              <a href={LINKS.paypal} target="_blank" rel="noopener" className="nav-link cta mobile-hidden w-inline-block">
-                <div className="button-label">SUPPORT ME</div>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 export function Preloader() {
@@ -103,6 +66,12 @@ export function Hero() {
             </div>
           </div>
         </div>
+        <a href="#base" className="scroll-cue" aria-label="Scroll to About">
+          <span className="label">Scroll</span>
+          <svg width="14" height="20" viewBox="0 0 14 20" fill="none" aria-hidden="true">
+            <path d="M7 1v17M1 12l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
       </BgVideo>
     </section>
   );
@@ -231,10 +200,15 @@ export function Story() {
           <div className="right-text-story">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/media/flower-svg.svg" alt="" className="svg-flower" />
+            <div className="story-copy">
             <p className="text-scroll-right">
               Turns out we were creating a world full of rhythm, soul, and stories. We lived it, felt it, recorded it,
               &amp; shared it with you.
             </p>
+            <a href={LINKS.story} target="_blank" rel="noopener" className="label story-feature-link">
+              Read the feature on MBU ↗
+            </a>
+            </div>
           </div>
         </div>
         <div className="story-number-grid">

@@ -171,9 +171,111 @@ main:focus {
   z-index: 1;
 }
 
-/* Keep the hero's "2025" clear of the motion toggle on phones. */
-@media screen and (max-width: 767px) {
-  .bottom-tile-hero {
-    padding-right: 48px;
+/* Keep the hero's "2025" clear of the motion toggle. */
+.bottom-tile-hero {
+  padding-right: 48px;
+}
+
+/* ---------- Navigation and mobile ---------- */
+
+/* Anchor jumps land below the fixed nav, and glide unless motion is reduced. */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
+}
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+/* "You are here": the pill of the section on screen gets a solid fill. */
+.nav-link.is-current {
+  background-color: var(--_colors---color--dark);
+  color: var(--_colors---color--yellow) !important;
+}
+.nav-link.is-current .nav-link-bg {
+  opacity: 0;
+}
+.nav-link.cta.is-current {
+  background-color: var(--_colors---color--yellow);
+  color: var(--_colors---color--dark) !important;
+  box-shadow: inset 0 0 0 2px var(--_colors---color--dark);
+}
+
+/* Phones: Support stays in the nav row (Home goes, the logo is right there). */
+@media screen and (max-width: 991px) {
+  .nav-link.cta.mobile-hidden {
+    display: flex;
+  }
+}
+
+/* Phones: the Vibe section scrolls about a quarter shorter. Same photos,
+   same animation, smaller gaps between the photos. */
+@media screen and (max-width: 767px) {
+  .master-scroll {
+    padding-top: 40px;
+  }
+  .scroll-image-vertical._1 { margin-top: 48px; }
+  .scroll-image-small._1 { margin-top: 18px; }
+  .scroll-image-large._2 { margin-top: 36px; }
+  .scroll-image-large._3 { margin-top: 75px; }
+  .scroll-image-large.heading-404 { margin-top: 36px; }
+  .scroll-image-small._2 { margin-top: 28px; }
+  .scroll-row._1 { margin-top: 75px; }
+  .scroll-row._2 { margin-top: 21px; }
+}
+
+/* Scroll cue at the bottom centre of the hero. */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 140px;
+  z-index: 2;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--_colors---color--yellow);
+  text-decoration: none;
+  min-width: 44px;
+  min-height: 44px;
+}
+.scroll-cue svg {
+  animation: scroll-cue 1.8s ease-in-out infinite;
+}
+@keyframes scroll-cue {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.5; }
+}
+@media screen and (max-width: 767px) {
+  .scroll-cue {
+    bottom: auto;
+    top: 56%;
+  }
+}
+html[data-motion="paused"] .scroll-cue svg {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue svg {
+    animation: none;
+  }
+}
+
+/* Story: link to the press feature that the nav used to open. */
+.story-feature-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+}
+.story-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
 }

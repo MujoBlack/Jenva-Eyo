@@ -80,7 +80,6 @@ function navigation() {
     ["makes", "section.makes", 0.8], // i-6a306ccb
     ["skills", "section.skills", 0.5], // i-2df63148
     ["story", "section.story", 0.5], // i-0e72ea1d
-    ["signal", ".mask", 0.5], // i-2af58be2
   ];
   for (const [key, trigger, scrub] of fills) {
     gsap.fromTo(

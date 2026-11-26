@@ -1,10 +1,10 @@
 import Motion from "@/components/Motion";
 import MotionToggle from "@/components/MotionToggle";
+import Nav from "@/components/Nav";
 import {
   Footer,
   Hero,
   Lives,
-  Navigation,
   Preloader,
   Signal,
   Story,
@@ -18,7 +18,7 @@ export default function Home() {
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <Navigation />
+      <Nav />
       <Preloader />
       <main id="main" tabIndex={-1}>
         <Hero />
