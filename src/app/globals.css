@@ -75,3 +75,8 @@ span.heading-405 {
   letter-spacing: var(--_text---h6--letter-spacing);
   margin: 10px 0.75rem 10px 0;
 }
+
+/* Return visits in the same session skip the intro (see layout.tsx). */
+.no-intro .preloader {
+  display: none;
+}

@@ -100,7 +100,7 @@ export default function LiveShows() {
                   </a>
                 </div>
                 <div className="absolute-video">
-                  <BgVideo name={show.video} className="video-services" />
+                  <BgVideo name={show.video} className="video-services" enabled={i === active} />
                 </div>
               </div>
             </div>

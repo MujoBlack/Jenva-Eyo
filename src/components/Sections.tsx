@@ -73,7 +73,7 @@ export function Preloader() {
 export function Hero() {
   return (
     <section id="hero" className="section hero-section">
-      <BgVideo name="jenva-short" className="video-hero">
+      <BgVideo name="jenva-short" className="video-hero" eager>
         <div className="w-layout-blockcontainer main-container w-container">
           <div className="master-hero-section">
             <h1 className="logo-wrap-hero">

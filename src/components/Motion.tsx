@@ -38,18 +38,31 @@ function preloaderAndHero() {
   const logo = document.querySelector<HTMLElement>(".preloader-logo");
   const rise = () => (wrap && logo ? -(wrap.offsetHeight - logo.offsetHeight) : 0);
 
-  tl.fromTo(".overlay-preloader-logo", { scaleX: 1 }, { scaleX: 0, duration: 1.25, ease: "expo.inOut" }, 0)
-    .fromTo(".preloader-logo", { y: 0 }, { y: rise, duration: 1.5, ease: "expo.inOut" }, 1.25)
-    .to(".preloader", { opacity: 0, duration: 0.33, ease: "power1.in" }, 2.22)
-    .set(".preloader", { display: "none" })
-    .fromTo(
-      words,
-      { yPercent: 100, opacity: 0 },
-      { yPercent: 0, opacity: 1, duration: 0.35, stagger: { amount: 0.4 }, ease: "power3.inOut" },
-      2.54,
-    )
-    .fromTo(".byq-logo", { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "power1.in" }, 2.54)
-    .fromTo(".right-hero-year", { x: 20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "power1.in" }, 2.54);
+  // The intro plays once per browser session (see INTRO_SCRIPT in layout.tsx),
+  // trimmed from 2.5 s to about 1.5 s. Return visits go straight to the hero.
+  const intro = !document.documentElement.classList.contains("no-intro");
+  let heroAt = 0;
+  if (intro) {
+    try {
+      sessionStorage.setItem("jenva-intro", "1");
+    } catch {}
+    tl.fromTo(".overlay-preloader-logo", { scaleX: 1 }, { scaleX: 0, duration: 0.75, ease: "expo.inOut" }, 0)
+      .fromTo(".preloader-logo", { y: 0 }, { y: rise, duration: 0.9, ease: "expo.inOut" }, 0.75)
+      .to(".preloader", { opacity: 0, duration: 0.25, ease: "power1.in" }, 1.33)
+      .set(".preloader", { display: "none" });
+    heroAt = 1.52;
+  } else {
+    gsap.set(".preloader", { display: "none" });
+  }
+
+  tl.fromTo(
+    words,
+    { yPercent: 100, opacity: 0 },
+    { yPercent: 0, opacity: 1, duration: 0.35, stagger: { amount: 0.4 }, ease: "power3.inOut" },
+    heroAt,
+  )
+    .fromTo(".byq-logo", { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "power1.in" }, heroAt)
+    .fromTo(".right-hero-year", { x: 20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "power1.in" }, heroAt);
 
   // i-0608b2f1: the photo ring spins forever
   gsap.to(".circle-wrapper", { rotation: 360, duration: 20, ease: "none", repeat: -1 });
