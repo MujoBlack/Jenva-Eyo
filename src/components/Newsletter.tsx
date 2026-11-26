@@ -45,6 +45,7 @@ export default function Newsletter() {
                 type="email"
                 id="email"
                 autoComplete="email"
+                aria-describedby="newsletter-note"
                 required
               />
               <div className="submit-button-wrap">
@@ -60,6 +61,9 @@ export default function Newsletter() {
                 </div>
               </div>
             </div>
+            <p className="label newsletter-note" id="newsletter-note">
+              Monthly-ish. New music and show dates. Unsubscribe anytime. <a href="/privacy">Privacy</a>
+            </p>
           </div>
         </form>
       )}

@@ -5,7 +5,10 @@ import Newsletter from "./Newsletter";
 import SplitTarget from "./SplitTarget";
 import { SparkleIcon, StarburstIcon } from "./Icons";
 import {
+  BOOKING_MAILTO,
   LINKS,
+  SOCIALS,
+  UPCOMING,
   RING_IMAGES,
   STATS,
   TRACKS,
@@ -154,6 +157,7 @@ export function Tracks() {
               <Photo img={t.img} sizes="100vw" />
               <div className="snap-bottom-gradient">
                 <div className="button-wrap-snap">
+                  <h3 className="track-title">{t.title}</h3>
                   <div className="button-snap _1">
                     <a href={LINKS.stream} target="_blank" rel="noopener" className="w-inline-block" aria-label={`Stream ${t.title}`}>
                       <div className="button-visible-text _1">
@@ -181,7 +185,30 @@ export function Lives() {
             <div className="heading-skills">
               <h2 className="heading-large">We don’t just perform we ignite energy.</h2>
             </div>
+            <a href={BOOKING_MAILTO} className="nav-link cta book-button w-inline-block">
+              <div className="button-label">Book Jenva</div>
+            </a>
           </div>
+          {UPCOMING.length > 0 && (
+            <div className="upcoming">
+              <h3 className="label">Upcoming</h3>
+              <ul className="upcoming-list">
+                {UPCOMING.map((show) => (
+                  <li key={show.name} className="upcoming-item">
+                    <span className="upcoming-name">{show.name}</span>
+                    <span className="label upcoming-meta">
+                      {[show.date ?? "Dates soon", show.city, show.venue].filter(Boolean).join(" · ")}
+                    </span>
+                    {show.tickets && (
+                      <a href={show.tickets} target="_blank" rel="noopener" className="label upcoming-tickets">
+                        Tickets ↗
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <LiveShows />
         </div>
       </section>
@@ -195,7 +222,7 @@ export function Story() {
       <div className="w-layout-blockcontainer main-container w-container">
         <div className="headline-story">
           <div className="left-text-story">
-            <h2 className="text-h2">We thought we were making a music.</h2>
+            <h2 className="text-h2">We thought we were making music.</h2>
           </div>
           <div className="right-text-story">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -253,6 +280,7 @@ export function Signal() {
               </div>
             </div>
             <div className="button-wrap-signal">
+              <p className="support-why">Your support pays for studio time and the next music video.</p>
               <a href={LINKS.paypal} target="_blank" rel="noopener" className="nav-link cta w-inline-block">
                 <div className="button-label">Send your love</div>
               </a>
@@ -293,9 +321,23 @@ export function Footer() {
         </div>
       </div>
       <div className="w-layout-blockcontainer main-container w-container">
+        <div className="footer-links">
+          <ul className="social-list" aria-label="Jenva Eyo on other platforms">
+            {SOCIALS.map((s) => (
+              <li key={s.label}>
+                <a href={s.href} target="_blank" rel="noopener me" className="label social-link">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href={BOOKING_MAILTO} className="nav-link cta book-button w-inline-block">
+            <div className="button-label">Book Jenva</div>
+          </a>
+        </div>
         <div className="section-divider footer-divider" />
         <div className="bottom-tile-footer">
-          <div className="label">🎶 gather where the music glow</div>
+          <div className="label">🎶 gather where the music glows</div>
           <a href={LINKS.designer} target="_blank" rel="noopener" className="label">
             designed by fahaddeartist.com
           </a>

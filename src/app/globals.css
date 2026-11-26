@@ -279,3 +279,143 @@ html[data-motion="paused"] .scroll-cue svg {
   align-items: flex-end;
   gap: 12px;
 }
+
+/* ---------- Content (Step 5) ---------- */
+
+.track-title {
+  margin: 0;
+  font-family: var(--font--heading-serif);
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 48px);
+  line-height: 1.1;
+  color: var(--_colors---color--light);
+}
+
+.book-button {
+  width: auto;
+  padding-inline: 24px;
+}
+.headline-skills .book-button {
+  margin-top: 8px;
+}
+
+.upcoming {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: left;
+}
+.upcoming > .label {
+  margin: 0 0 12px;
+  font-weight: inherit;
+}
+.upcoming-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px dashed currentColor;
+}
+.upcoming-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 14px 0;
+  border-bottom: 1px dashed currentColor;
+}
+.upcoming-name {
+  flex: 1 1 auto;
+  font-family: var(--font--heading-serif);
+  font-size: 24px;
+  line-height: 1.2;
+}
+.upcoming-tickets {
+  color: inherit;
+}
+
+.support-why {
+  margin: 0 0 16px;
+  max-width: 320px;
+  font-family: var(--font--heading-sans);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 48px 0 24px;
+}
+.social-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: none;
+}
+.social-link:hover {
+  text-decoration: underline;
+}
+
+.newsletter-note {
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0.5px;
+}
+.newsletter-note a {
+  color: inherit;
+  display: inline-block;
+  padding-block: 14px;
+  margin-block: -14px;
+}
+
+/* Plain text pages (privacy, 404). */
+.plain-page {
+  min-height: 100svh;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 96px 20px 64px;
+  background: var(--_colors---bg--bg-1);
+  color: var(--_colors---color--dark);
+  font-family: var(--font--heading-sans);
+  font-size: 17px;
+  line-height: 1.55;
+}
+.plain-page h1 {
+  margin: 24px 0 32px;
+}
+.plain-page h2 {
+  margin: 32px 0 8px;
+}
+.plain-page a {
+  color: inherit;
+}
+.plain-page-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+body:has(.plain-page) {
+  background-color: var(--_colors---bg--bg-1);
+}
+/* On the yellow footer the yellow CTA would vanish: invert it. */
+.footer .book-button {
+  background-color: var(--_colors---color--dark);
+  color: var(--_colors---color--yellow);
+}
+.social-link {
+  min-width: 44px;
+  justify-content: center;
+}

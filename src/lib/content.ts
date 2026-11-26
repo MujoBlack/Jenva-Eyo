@@ -5,6 +5,35 @@ export const LINKS = {
   designer: "https://fahaddeartist.com",
 };
 
+export const BOOKING_EMAIL = "bookingsslfiq@gmail.com";
+
+/** mailto: with a short enquiry template, so promoters send what is needed. */
+export const BOOKING_MAILTO =
+  `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent("Booking enquiry: Jenva Eyo")}` +
+  `&body=${encodeURIComponent("Hi,\n\nEvent:\nDate:\nCity and venue:\nSet length:\nBudget / fee:\n\nThanks,\n")}`;
+
+/** Profiles, in the order shown in the footer. `sameAs` feeds the JSON-LD in Step 6. */
+export const SOCIALS = [
+  { label: "Instagram", href: "https://www.instagram.com/jenvaa_/" },
+  { label: "TikTok", href: "https://www.tiktok.com/@jenvaofficial" },
+  { label: "YouTube", href: "https://www.youtube.com/channel/UCIk-8VSdUkCnyP6rFASukwQ" },
+  { label: "X", href: "https://x.com/Jenvaa_" },
+  { label: "Spotify", href: "https://open.spotify.com/artist/1pWcaVS7oJ3XLjKMk3dm11" },
+  { label: "Audiomack", href: "https://audiomack.com/jenvaa" },
+  { label: "Mx3", href: "https://mx3.ch/jenvaeyo" },
+] as const;
+
+/**
+ * Upcoming shows. Only names are confirmed so far; add date, city, venue and
+ * a ticket link as they come in. The list hides itself when this is empty.
+ */
+export type UpcomingShow = { name: string; date?: string; city?: string; venue?: string; tickets?: string };
+export const UPCOMING: UpcomingShow[] = [
+  { name: "Afro Summer Jam 2027" },
+  { name: "Afro-Pfingsten" },
+  { name: "Ghana Festival" },
+];
+
 /** `alt` only for photos that carry meaning; decorative ones stay empty. */
 export type Img = { src: string; w: number; h: number; alt?: string };
 
@@ -83,13 +112,14 @@ export const SHOWS: Show[] = [
   {
     city: "Zurich",
     caption:
-      "It has been a long way from to where we are now, but it still feels like we haven’t gotten anywhere yet so we stay hungry and hungrier.",
+      "It has been a long way from where we started to where we are now, but it still feels like we haven’t gotten anywhere yet so we stay hungry and hungrier.",
     insta: "https://www.instagram.com/reel/DL8BALQNdKm/",
     video: "ins-2",
   },
   {
     city: "Geneva",
-    caption: "Geneva stop was just impossible to imagine @lateenaplummer she the real Diva.",
+    caption: "Geneva stop was just impossible to imagine ",
+    mention: { text: "@lateenaplummer", href: "https://www.instagram.com/lateenaplummer/", after: " she the real Diva." },
     insta: "https://www.instagram.com/reel/DLNdrX-qHWu/",
     video: "ins-3",
   },
