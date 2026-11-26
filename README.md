@@ -30,7 +30,11 @@ npm run lint
 | `src/lib/content.ts` | Copy, links, images, stats |
 | `public/media`, `public/fonts` | Self-hosted images, videos and fonts |
 
-Animations respect `prefers-reduced-motion`: the preloader is skipped and background videos pause.
+Animations respect `prefers-reduced-motion`, and a "Pause motion" button stops videos and looping animations. Videos load only when they are about to be seen; phones get the `*-mobile.mp4` encodes.
+
+## Content to keep up to date
+
+All in `src/lib/content.ts`: `UPCOMING` (add date, city, venue, tickets as they are confirmed; a dated show also appears in Google's structured data), `SOCIALS`, `BOOKING_EMAIL`, `TRACKS`.
 
 ## Newsletter
 
@@ -38,7 +42,7 @@ The newsletter service is not chosen yet. Set `NEWSLETTER_WEBHOOK_URL` (see `.en
 
 ## Deploy
 
-Import the repo in Vercel (framework preset: Next.js, no build settings to change) and add `NEWSLETTER_WEBHOOK_URL` under Environment Variables once a service is picked.
+Import the repo in Vercel (framework preset: Next.js, no build settings to change). Under Environment Variables, add `NEXT_PUBLIC_SITE_URL` once the domain is live, and `NEWSLETTER_WEBHOOK_URL` once a service is picked. Turn on Web Analytics and Speed Insights in the Vercel project; the code is already in place.
 
 ## Fonts
 
