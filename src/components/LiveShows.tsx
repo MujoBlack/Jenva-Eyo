@@ -33,15 +33,33 @@ export default function LiveShows() {
     setActive(i);
   });
 
+  // Standard tabs keyboard pattern: arrows move between tabs, Home/End jump.
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const n = SHOWS.length;
+    const next =
+      e.key === "ArrowRight" ? (active + 1) % n
+      : e.key === "ArrowLeft" ? (active - 1 + n) % n
+      : e.key === "Home" ? 0
+      : e.key === "End" ? n - 1
+      : -1;
+    if (next < 0) return;
+    e.preventDefault();
+    select(next);
+    root.current?.querySelectorAll<HTMLElement>(".tab-btn")[next]?.focus();
+  };
+
   return (
     <div className="services" ref={root}>
-      <div className="tabs-wrap" role="tablist" aria-label="Live shows">
+      <div className="tabs-wrap" role="tablist" aria-label="Live shows" onKeyDown={onKeyDown}>
         {SHOWS.map((show, i) => (
           <button
             key={show.city}
             type="button"
             role="tab"
+            id={`show-tab-${i}`}
+            aria-controls={`show-panel-${i}`}
             aria-selected={i === active}
+            tabIndex={i === active ? 0 : -1}
             className={`tab-btn${i === active ? " is-active" : ""}`}
             onClick={() => select(i)}
           >
@@ -55,7 +73,14 @@ export default function LiveShows() {
       <div className="panels-outer">
         <div className="panels-track">
           {SHOWS.map((show, i) => (
-            <div key={show.city} className="panel" role="tabpanel" aria-hidden={i !== active}>
+            <div
+              key={show.city}
+              className="panel"
+              role="tabpanel"
+              id={`show-panel-${i}`}
+              aria-labelledby={`show-tab-${i}`}
+              inert={i !== active}
+            >
               <div className="panel-content">
                 <div className="panel-inner">
                   <div className="text-scroll-right white">{show.city}</div>
@@ -71,7 +96,7 @@ export default function LiveShows() {
                     )}
                   </div>
                   <a href={show.insta} target="_blank" rel="noopener" className="link-block w-inline-block">
-                    <h6 className="heading-405">Watch on Insta</h6>
+                    <span className="heading-405">Watch on Insta</span>
                   </a>
                 </div>
                 <div className="absolute-video">

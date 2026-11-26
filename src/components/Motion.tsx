@@ -15,13 +15,31 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const q = <T extends Element = HTMLElement>(sel: string) => gsap.utils.toArray<T>(sel);
 
+/**
+ * Split the visible copy of a <SplitTarget>. That copy is already
+ * aria-hidden with a screen-reader twin beside it, so SplitText must not add
+ * its own aria-label (not allowed on p/div) or hide anything else.
+ */
+const split = (target: string | Element, vars: SplitText.Vars) =>
+  SplitText.create(typeof target === "string" ? `${target} .split-target` : target.querySelector(".split-target")!, {
+    ...vars,
+    aria: "none",
+  });
+
 function preloaderAndHero() {
   // i-fcd196e8 (page load)
   const tl = gsap.timeline();
-  const words = SplitText.create(".text-wrap-hero-middle .label", { type: "words" }).words;
+  const words = split(".text-wrap-hero-middle .label", { type: "words" }).words;
 
-  tl.fromTo(".overlay-preloader-logo", { width: "100%" }, { width: "0%", duration: 1.25, ease: "expo.inOut" }, 0)
-    .fromTo(".wrap-preloader-logo", { height: "100%" }, { height: "0%", duration: 1.5, ease: "expo.inOut" }, 1.25)
+  // The original animated width and height, which counts as layout shift.
+  // The same motion with transforms: the overlay shrinks toward the right,
+  // and the logo rises from the bottom of the screen to the top.
+  const wrap = document.querySelector<HTMLElement>(".wrap-preloader-logo");
+  const logo = document.querySelector<HTMLElement>(".preloader-logo");
+  const rise = () => (wrap && logo ? -(wrap.offsetHeight - logo.offsetHeight) : 0);
+
+  tl.fromTo(".overlay-preloader-logo", { scaleX: 1 }, { scaleX: 0, duration: 1.25, ease: "expo.inOut" }, 0)
+    .fromTo(".preloader-logo", { y: 0 }, { y: rise, duration: 1.5, ease: "expo.inOut" }, 1.25)
     .to(".preloader", { opacity: 0, duration: 0.33, ease: "power1.in" }, 2.22)
     .set(".preloader", { display: "none" })
     .fromTo(
@@ -82,7 +100,7 @@ function vibeHeadline() {
 
   for (let i = 0; i < 4; i++) {
     const n = i + 1;
-    const chars = SplitText.create(`.text-h2.scroll-${n}`, { type: "chars", mask: "chars" }).chars;
+    const chars = split(`.text-h2.scroll-${n}`, { type: "chars", mask: "chars" }).chars;
     tl.fromTo(
       chars,
       { opacity: 0, yPercent: 100 },
@@ -138,7 +156,7 @@ function tracks() {
 function story() {
   // i-ec7ec0f4: stat numbers roll up when they come into view.
   for (const num of q(".number-animate > *")) {
-    const chars = SplitText.create(num, { type: "chars", mask: "chars" }).chars;
+    const chars = split(num, { type: "chars", mask: "chars" }).chars;
     gsap.fromTo(
       chars,
       { yPercent: 100 },
@@ -156,8 +174,9 @@ function story() {
 
 function signal() {
   // i-eef0c60c: the "Start the rhythm" block and the photo ring zoom.
-  const labelChars = SplitText.create(".label-wrap-signal > *", { type: "chars" }).chars;
-  const lines = SplitText.create(".heading-signal", { type: "lines", mask: "lines" }).lines;
+  const labelChars = split(".label-wrap-signal", { type: "chars" }).chars;
+  // Split inside the h2, so the heading stays one heading.
+  const lines = split(".heading-signal h2", { type: "lines", mask: "lines" }).lines;
 
   gsap
     .timeline({

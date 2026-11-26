@@ -60,3 +60,18 @@ button.tab-btn {
     display: none;
   }
 }
+
+/* Visible half of <SplitTarget>: one box for SplitText to split. */
+.split-target {
+  display: block;
+}
+
+/* "Watch on Insta" was an h6; it is link text now, with the same look. */
+span.heading-405 {
+  display: block;
+  font-size: var(--_text---h6--font-size);
+  line-height: var(--_text---h6--line-height);
+  font-weight: var(--_text---h6--font-weight);
+  letter-spacing: var(--_text---h6--letter-spacing);
+  margin: 10px 0.75rem 10px 0;
+}

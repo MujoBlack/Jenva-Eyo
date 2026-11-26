@@ -2,6 +2,7 @@ import Image from "next/image";
 import BgVideo from "./BgVideo";
 import LiveShows from "./LiveShows";
 import Newsletter from "./Newsletter";
+import SplitTarget from "./SplitTarget";
 import { SparkleIcon, StarburstIcon } from "./Icons";
 import {
   LINKS,
@@ -88,7 +89,9 @@ export function Hero() {
               </div>
               <div className="text-wrap-hero-middle">
                 <p className="label hero-animated">
-                  From Uganda to your playlist — immersive Afro-Pop waves, heartfelt lyrics, and a new musical era.
+                  <SplitTarget>
+                    From Uganda to your playlist — immersive Afro-Pop waves, heartfelt lyrics, and a new musical era.
+                  </SplitTarget>
                 </p>
               </div>
               <div className="right-hero-year">
@@ -138,7 +141,9 @@ export function Vibe() {
                       <div className={`label scroll-${n}`}>{p.label}</div>
                     </div>
                     <div className="text-wrap-scroll">
-                      <h2 className={`text-h2 scroll-${n}`}>{p.text}</h2>
+                      <h2 className={`text-h2 scroll-${n}`}>
+                        <SplitTarget>{p.text}</SplitTarget>
+                      </h2>
                     </div>
                     {n % 2 === 1 && doodle}
                   </div>
@@ -236,7 +241,9 @@ export function Story() {
           {STATS.map((s, i) => (
             <div key={s.title} className={i === 0 ? "story-grid-item" : `story-grid-item _${i + 1}`}>
               <div className="number-animate">
-                <div className="text-number">{s.value}</div>
+                <div className="text-number">
+                  <SplitTarget>{s.value}</SplitTarget>
+                </div>
               </div>
               <div className="text-wrap-story-item">
                 <div className="title-number-item">{s.title}</div>
@@ -260,11 +267,15 @@ export function Signal() {
         <div className="master-signal">
           <div className="content-signal">
             <div className="label-wrap-signal">
-              <div className="label">Start the rhythm</div>
+              <div className="label">
+                <SplitTarget>Start the rhythm</SplitTarget>
+              </div>
             </div>
             <div className="headline-signal">
               <div className="heading-signal">
-                <h2 className="heading-large">We’ll feel the groove.</h2>
+                <h2 className="heading-large">
+                  <SplitTarget>We’ll feel the groove.</SplitTarget>
+                </h2>
               </div>
             </div>
             <div className="button-wrap-signal">
